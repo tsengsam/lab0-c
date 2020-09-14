@@ -74,12 +74,13 @@ static bool do_reverse(int argc, char *argv[]);
 static bool do_size(int argc, char *argv[]);
 static bool do_sort(int argc, char *argv[]);
 static bool do_show(int argc, char *argv[]);
-
+static bool do_hello(int argc, char *argv[]);
 static void queue_init();
 
 static void console_init()
 {
     add_cmd("new", do_new, "                | Create new queue");
+    add_cmd("helloo", do_hello, "                | Print hello message");
     add_cmd("free", do_free, "                | Delete queue");
     add_cmd("ih", do_insert_head,
             " str [n]        | Insert string str at head of queue n times. "
@@ -104,6 +105,10 @@ static void console_init()
               NULL);
     add_param("fail", &fail_limit,
               "Number of times allow queue operations to return false", NULL);
+}
+bool do_hello(int argc, char *argv[])
+{
+    return (bool) printf("Hello, World\n");
 }
 
 static bool do_new(int argc, char *argv[])

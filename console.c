@@ -66,7 +66,7 @@ static char *prompt = "cmd> ";
 #define MAXQUIT 10
 static cmd_function quit_helpers[MAXQUIT];
 static int quit_helper_cnt = 0;
-
+// static bool do_hello(int argc, char *argv[]);
 static bool do_quit_cmd(int argc, char *argv[]);
 static bool do_help_cmd(int argc, char *argv[]);
 static bool do_option_cmd(int argc, char *argv[]);
@@ -90,6 +90,7 @@ void init_cmd()
     err_cnt = 0;
     quit_flag = false;
 
+    // add_cmd("hello", do_hello, "                | Print hello message");
     add_cmd("help", do_help_cmd, "                | Show documentation");
     add_cmd("option", do_option_cmd,
             " [name val]     | Display or set options");
@@ -431,6 +432,13 @@ static bool do_time_cmd(int argc, char *argv[])
 
     return ok;
 }
+/*
+static bool do_hello(int argc, char *argv[])
+{
+    return (bool) printf("Hello, World\n");
+}*/
+
+#include <stdlib.h>
 
 /* Create new buffer for named file.
  * Name == NULL for stdin.
@@ -451,6 +459,7 @@ static bool push_file(char *fname)
     rnew->bufptr = rnew->buf;
     rnew->prev = buf_stack;
     buf_stack = rnew;
+#include <stdlib.h>
 
     return true;
 }
