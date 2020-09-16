@@ -79,23 +79,22 @@ bool q_insert_tail(queue_t *q, char *s)
 {
     if (!q)
         return false;
-    list_ele_t *newh = malloc(sizeof(list_ele_t));
-    if (!newh)
+    list_ele_t *newt = malloc(sizeof(list_ele_t));
+    if (!newt)
         return false;
-    char *tmp = malloc(sizeof(char) * strlen(s) + 1);
-    if (!tmp) {
-        free(newh);
+    newt->value = malloc(sizeof(char) * strlen(s) + 1);
+    if (!newt->value) {
+        free(newt);
         return false;
     }
-    newh->value = tmp;
-    strncpy(tmp, s, strlen(s) + 1);
-    newh->next = NULL;
+    strncpy(newt->value, s, strlen(s) + 1);
+    newt->next = NULL;
     if (!q->tail) {
-        q->tail = newh;
-        q->head = newh;
+        q->tail = newt;
+        q->head = newt;
     } else {
-        q->tail->next = newh;
-        q->tail = newh;
+        q->tail->next = newt;
+        q->tail = newt;
     }
     q->size++;
 
@@ -200,7 +199,7 @@ list_ele_t *merge_list(list_ele_t *head)
     return merge(ll, rl);
 }
 
-list_ele_t *merge(list_ele_t *ll, list_ele_t *rl)
+/*list_ele_t *merge(list_ele_t *ll, list_ele_t *rl)
 {
     if (!ll)
         return rl;
@@ -214,4 +213,23 @@ list_ele_t *merge(list_ele_t *ll, list_ele_t *rl)
         ll->next = merge(ll->next, rl);
         return ll;
     }
+}*/
+
+list_ele_t *merge(list_ele_t *ll, list_ele_t *rl)
+{
+    list_ele_t *newh = NULL;
+    list_ele_t **cursor = &newh;
+    while (ll && rl) {
+        if (strcmp(ll->value, rl->value) > 0) {
+            *cursor = rl;
+            rl = rl->next;
+        } else {
+            *cursor = ll;
+            ll = ll->next;
+        }
+        cursor = &(*cursor)->next;
+    }
+    *cursor = ll ? ll : rl;
+
+    return newh;
 }
