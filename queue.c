@@ -198,8 +198,8 @@ list_ele_t *merge_list(list_ele_t *head)
 
     return merge(ll, rl);
 }
-
-/*list_ele_t *merge(list_ele_t *ll, list_ele_t *rl)
+/*
+list_ele_t *merge(list_ele_t *ll, list_ele_t *rl)
 {
     if (!ll)
         return rl;
@@ -214,7 +214,6 @@ list_ele_t *merge_list(list_ele_t *head)
         return ll;
     }
 }*/
-
 list_ele_t *merge(list_ele_t *ll, list_ele_t *rl)
 {
     list_ele_t *newh = NULL;
